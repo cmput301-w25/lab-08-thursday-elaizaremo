@@ -149,4 +149,25 @@ public class MainActivityTest {
             }
         }
     }
+    @Test
+    public void addMovieShouldShowErrorForDuplicateTitle() {
+        // Add a movie with title "Oppenheimer" already in the database
+        // Ensure "Oppenheimer" already exists by seeding it
+        seedDatabase();
+
+        // Click on the button to open the Add Movie dialog
+        onView(withId(R.id.buttonAddMovie)).perform(click());
+
+        // Input Movie Details (attempt to add "Oppenheimer" again)
+        onView(withId(R.id.edit_title)).perform(ViewActions.typeText("Oppenheimer"));
+        onView(withId(R.id.edit_genre)).perform(ViewActions.typeText("Thriller"));
+        onView(withId(R.id.edit_year)).perform(ViewActions.typeText("2024"));
+
+        // Submit Form (simulate the user clicking "Continue" to add the movie)
+        onView(withId(android.R.id.button1)).perform(click());
+
+        // Check that the error message for the duplicate title is shown to the user
+        onView(withId(R.id.edit_title)).check(matches(hasErrorText("There is already a movie with this title")));
+    }
+
 }

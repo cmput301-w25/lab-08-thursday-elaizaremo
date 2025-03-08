@@ -42,4 +42,5 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
 
         return view;
     }
+
 }

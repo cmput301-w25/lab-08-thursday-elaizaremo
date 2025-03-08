@@ -105,6 +105,10 @@ public class MovieDialogFragment extends DialogFragment {
                 String title = editMovieName.getText().toString().trim();
                 String genre = editMovieGenre.getText().toString().trim();
                 int year = Integer.parseInt(editMovieYear.getText().toString().trim());
+                if (!movieProvider.isTitleUnique(title)) {
+                    editMovieName.setError("There is already a movie with this title");
+                    return;
+                }
                 if (tag != null && tag.equals( "Movie Details")) {
                     movieProvider.updateMovie(movie, title, genre, year);
                 } else {
